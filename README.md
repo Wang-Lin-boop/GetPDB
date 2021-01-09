@@ -2,7 +2,7 @@
   
 Usage: GetPDB [OPTION] <parameter> 
   
-Example: GetPDB -i Uniprot_list -w -o Uniprot-PDB -n 10 -p -r 
+·Example: GetPDB -i Uniprot_list -w -o Uniprot-PDB -n 10 -p -r 
   
 Uniprot input example:  
 Q9BWF2  
@@ -24,6 +24,6 @@ Output parameter:
   -d    A dir to store some list of Uniprot-PDBID-Chainid info, defult is Uniprot-info-list.  
   -p    Output a Representative chain per Uniprot's PDB Entry. Such as PXXXXX:XXXX_A/B, only XXXX_A will be output. Defult is false.   
   -r    Each sequence interval preserves only one representative structure. Defult is false.   
-        Such as P00000:XXXX_A:27-213 and P00000:ZZZZ_A:27-213, only one of them will be saved.    
+        Such as P00000:XXXX_A:27-213 and P00000:ZZZZ_A:27-213, only one of them will be saved.    ·
  
 The project is still in its inital stage, Feel free to help with suggestions and contibutions. 
