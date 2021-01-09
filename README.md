@@ -12,7 +12,7 @@ Uniprot input example:
 
 This script will download related PDB files, extract chains(Optional), remove duplicates(Optional, maybe lost some conformation changed structures) and save as "UniprotID-PDBID-ModelID-ChainID.pdb/cif".
 
-Installtion
+installation
 ----
 
 At frist, you need dwonload a julia package from [Julia Download](https://julialang.org/downloads/).
