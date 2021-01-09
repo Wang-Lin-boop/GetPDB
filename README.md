@@ -12,6 +12,29 @@ Uniprot input example:
 
 This script will download related PDB files, extract chains and save as "UniprotID-PDBID-ModelID-ChainID.pdb/cif".
 
+Installtion
+----
+
+At frist, you need dwonload a julia package from [Julia Download](https://julialang.org/downloads/).
+
+Then, move julia package and GetPDB to your /home/software or anywhere you like.
+
+        echo "alias GetPDB=${PWD}/GetPDB" >> ~/.bashrc
+        chmod +x GetPDB
+        tar zxvf julia-1.5.3-linux-x86_64.tar.gz
+        cd julia-1.5.3/bin
+        echo "export PATH=${PWD}:\$PATH" >> ~/.bashrc
+        source ~/.bashrc
+        julia
+        ]add BioStructures
+        exit()
+        
+Optionally, if you use windows to process your Uniprot list files frequently, you need install a dos2unix used to convert your dos text format to unix(linux), don't worry how to use it, GetPDB will convert it automatic。
+
+        sudo apt install dos2unix
+
+Now, you can download Bio-Structures form your Uniprot list in your working directory！
+
 Usage
 ----
 
