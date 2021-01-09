@@ -1,0 +1,194 @@
+#!/bin/bash
+function help (){
+cat<<HELP
+
+Usage: GetPDB [OPTION] <parameter>
+
+Example: GetPDB -i Uniprot_list -w -o Uniprot-PDB -n 10 -p -r
+
+Uniprot input example:
+Q9BWF2
+P19474
+P36406
+O15164
+Q14258
+
+Input parameter:
+  -i	Your Uniprotlist file.
+  -b    Your PDBlib, optional.
+  -n    The Max number of CPU threads available for this job, default is 4.
+  -l    An index for Uniprot, such as "pdb_chain_uniprot.csv".
+        This file can be download at https://www.ebi.ac.uk/pdbe/docs/sifts/quick.html
+        OR you can use -w download its latest version automatic.
+
+Output parameter:
+  -o    Processed PDB files will store in this Path, default is Uniprot-PDB.
+  -d    A dir to store some list of Uniprot-PDBID-Chainid info, defult is Uniprot-info-list.
+  -p    Output a Representative chain per Uniprot's PDB Entry. Such as PXXXXX:XXXX_A/B, only XXXX_A will be output. Defult is false. 
+  -r    Each sequence interval preserves only one representative structure. Defult is false.
+        Such as P00000:XXXX_A:27-213 and P00000:ZZZZ_A:27-213, only one of them will be saved. 
+
+Thank you for your using, If you found any problem, Please contact wanglin3@shanghaitech.edu.cn.
+HELP
+}
+
+function MaplistToPDB(){
+    ListFile=$1
+    indexfile=$2
+    processnum=$3
+    outputPath=$4
+    SwitchtoOnechain=$5
+    tmpdirPath=$6
+    dos2unix $ListFile
+    for UniprotID in `cat $ListFile | sort | uniq`;do
+        for pdbid in `grep ",$UniprotID," $indexfile | awk -F "," '{print $1}' | sort -u `;do
+            for chainid in `grep ",$UniprotID," $indexfile| grep "^$pdbid," | awk -F "," '{print $2}'`;do
+                resid=`grep "^$pdbid,$chainid,$UniprotID," $indexfile | awk -F "," '{OFS=":"}''{print $8,$9}' | head -n 1`
+                echo "$UniprotID:$pdbid:$chainid:$resid" >> $tmpdirPath/$UniprotID-pdbchainlist
+            done
+        done
+        if [ -f "$tmpdirPath/$UniprotID-pdbchainlist" ];then
+        sort -t: -nrk 4 -nrk 5 -o $tmpdirPath/$UniprotID-pdbchainlist $tmpdirPath/$UniprotID-pdbchainlist
+        fi
+    done
+cat << JULIASC > getPDB-chain.jl
+#!/mnt/g/julia-1.4.2/bin/julia
+using BioStructures
+const outdir="$outputPath"
+const Switchtospilt="$SwitchtoOnechain"
+const PDBlib="$PDBlib"
+const duptole=$duptole
+
+function spiltPDB(Structure,outdir,pdbid,chainname,UniprotID,Switchtospilt,resbegin,resend)
+    if Switchtospilt == "false"
+        try
+            BioStructures.writepdb("\$outdir/\$UniprotID-\$pdbid-\$chainname.pdb",Structure)
+        catch e0
+            BioStructures.writemmcif("\$outdir/\$UniprotID-\$pdbid-\$chainname.cif",Structure)
+        end
+    end
+    if Switchtospilt == "true"
+        for model in Structure
+            modelname = BioStructures.modelnumber(model)
+            for chain in model
+                uniqchainname = BioStructures.chainid(chain) 
+                uniqchainname == chainname && begin
+                try
+                    BioStructures.writepdb("\$outdir/\$UniprotID-\$pdbid-\$modelname-\$chainname-\$resbegin-\$resend.pdb",chain)
+                catch e0
+                    BioStructures.writemmcif("\$outdir/\$UniprotID-\$pdbid-\$modelname-\$chainname-\$resbegin-\$resend.cif",chain)
+                end
+                end
+            end
+        end
+    end
+end
+
+function processPDB(UniprotID,pdbid,chainname,Switchtospilt,permitvalue,resbegin,resend)
+    permitvalue > 0 && begin
+        try
+            Structure = BioStructures.retrievepdb(pdbid, dir=PDBlib)
+            spiltPDB(Structure,outdir,pdbid,chainname,UniprotID,Switchtospilt,resbegin,resend)
+        catch e1
+            try    
+                file = BioStructures.downloadpdb(pdbid,dir=PDBlib,format=MMCIF) 
+                Structure = BioStructures.read(file, MMCIF)
+                spiltPDB(Structure,outdir,pdbid,chainname,UniprotID,Switchtospilt,resbegin,resend)
+            catch e2
+                file = BioStructures.downloadpdb(pdbid,dir=PDBlib,format=MMTF)
+                Structure = BioStructures.read(file, MMTF)
+                spiltPDB(Structure,outdir,pdbid,chainname,UniprotID,Switchtospilt,resbegin,resend)
+            end
+        end
+    end
+end
+
+function main(Listfile)
+    lastresbegin=0
+    lastreslength=0
+    for line in readlines("$tmpdirPath/\$Listfile")
+        permitvalue=duptole
+        UniprotID = split(line,":")[1]
+        pdbid = split(line,":")[2]
+        chainname = split(line,":")[3]
+        resbegin = split(line,":")[4]
+        resend = split(line,":")[5]
+        isequal(resbegin,lastresbegin) || (permitvalue=permitvalue + 1)
+        isequal(lastreslength,resend) || (permitvalue=permitvalue + 1)
+        processPDB(UniprotID,pdbid,chainname,Switchtospilt,permitvalue,resbegin,resend)
+        lastresbegin = resbegin
+        lastreslength = resend
+    end
+end
+
+Threads.@threads for Listfile in readdir("$tmpdirPath")
+    main(Listfile)
+end
+JULIASC
+julia -p $processnum getPDB-chain.jl
+}
+
+input="Uniprotlist"
+OutPath="Uniprot-PDB"
+UniprotIndex="pdb_chain_uniprot.csv"
+CPUnum=4
+OneChain="false"
+duptole=1
+PDBlib="PDBlib"
+tmpdir="Uniprot-info-list"
+while getopts ":hi:b:l:o:n:d:prw" opt
+do
+  case $opt in
+    h)
+        help
+        exit;;
+    i)
+        input=$OPTARG;;
+    l)
+        UniprotIndex=$OPTARG;;
+    o)
+        OutPath=$OPTARG;;
+    n)
+        CPUnum=$OPTARG;;
+    b)
+        PDBlib=$OPTARG;;
+    d)
+        tmpdir=$OPTARG;;
+    p)
+        OneChain=true;;
+    r)
+        duptole=0;;
+    w)
+        wget -nv ftp://ftp.ebi.ac.uk/pub/databases/msd/sifts/flatfiles/csv/pdb_chain_uniprot.csv.gz
+        gzip -d pdb_chain_uniprot.csv.gz
+        UniprotIndex="pdb_chain_uniprot.csv";;
+    ?)
+        echo ""
+        echo "Error: Do not use undefined options."
+        echo ""
+        help
+        exit;;
+    esac
+done
+
+#Check Input
+for i in $OutPath $tmpdir;do
+    if [ -d "$i" ];then
+            echo "Warning: Directory $i already exists."
+    else
+            mkdir $i
+    fi
+done
+    for i in $input $UniprotIndex
+    do
+        if [ -f "$i" ];then
+            echo "$i has been found."
+        else
+            echo "error: $i not found."
+            exit
+        fi
+    done
+
+#main function
+
+MaplistToPDB $input $UniprotIndex $CPUnum $OutPath $OneChain $tmpdir
