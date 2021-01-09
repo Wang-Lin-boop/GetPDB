@@ -1,13 +1,13 @@
 GetPDB
 =======
 A linux shell script with julia BioStrucures Package to download and spilt PDB from Uniprot ID list.
-
 Uniprot input example:  
-Q9BWF2  
-P19474  
-P36406  
-O15164  
-Q14258  
+
+        Q9BWF2  
+        P19474  
+        P36406  
+        O15164  
+        Q14258  
 
 This script will download related PDB files, extract chains and save as "UniprotID-PDBID-ModelID-ChainID.pdb/cif".
 
