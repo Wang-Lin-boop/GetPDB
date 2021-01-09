@@ -51,6 +51,7 @@ Usage
     -l    An index for Uniprot, such as "pdb_chain_uniprot.csv".  
           This file can be download at https://www.ebi.ac.uk/pdbe/docs/sifts/quick.html  
           OR you can use -w download its latest version automatic.  
+    -w    Use -w instead of -l unless you know what you're doing.
  
     Output parameter: 
     -o    Processed PDB files will store in this Path, default is Uniprot-PDB.  
