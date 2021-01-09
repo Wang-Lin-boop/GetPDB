@@ -14,7 +14,7 @@ This script will download related PDB files, extract chains and save as "Uniprot
 Usage
 ----
 
-Usage: GetPDB [OPTION] <parameter> 
+    Usage: GetPDB [OPTION] <parameter> 
   
     Example: GetPDB -i Uniprot_list -w -o Uniprot-PDB -n 10 -p -r 
  
