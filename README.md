@@ -19,7 +19,7 @@ Usage: GetPDB [OPTION] <parameter>
 Example: GetPDB -i Uniprot_list -w -o Uniprot-PDB -n 10 -p -r 
  
 >Input parameter:  
->>    -i	  Your Uniprotlist file.   
+>>    -i    Your Uniprotlist file.   
 >>    -b    Your PDBlib, optional.   
 >>    -n    The Max number of CPU threads available for this job, default is 4.  
 >>    -l    An index for Uniprot, such as "pdb_chain_uniprot.csv".  
