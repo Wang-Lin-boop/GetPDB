@@ -15,7 +15,7 @@ This script will download related PDB files, extract chains(Optional), remove du
 installation
 ----
 
-At frist, you need dwonload a julia package from [Julia Download](https://julialang.org/downloads/).
+Fristly, you need dwonload a julia package from [Julia Download](https://julialang.org/downloads/).
 
 Then, move julia package and GetPDB to your /home/software or anywhere you like.
 
