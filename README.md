@@ -1,6 +1,7 @@
 GetPDB
 =======
 A linux shell script with julia BioStrucures Package to download and spilt PDB from Uniprot ID list.
+
 Uniprot input example:  
 
         Q9BWF2  
