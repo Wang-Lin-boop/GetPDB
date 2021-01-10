@@ -10,7 +10,7 @@ Uniprot input example:
         O15164  
         Q14258  
 
-[image](https://github.com/Wang-Lin-boop/GetPDB/blob/master/img/Uniprot.png)
+![image](https://github.com/Wang-Lin-boop/GetPDB/blob/master/img/Uniprot.png)
 
 This script will download related PDB files, extract chains(Optional), remove duplicates(Optional, maybe lost some conformation changed structures) and save as "UniprotID-PDBID-ModelID-ChainID.pdb/cif".
 
@@ -19,7 +19,7 @@ installation
 
 Fristly, you need dwonload a julia package from [Julia Download](https://julialang.org/downloads/).
 
-Then, move julia package and GetPDB to your /home/software or anywhere you like.
+Then, move julia package and GetPDB to your /home/software or anywhere you like, run these commonds as follow: (If you are using the Windows 10, then the WSL(Linux Subsystem) is a good choice.)
 
         echo "alias GetPDB=${PWD}/GetPDB" >> ~/.bashrc
         chmod +x GetPDB
@@ -62,7 +62,7 @@ Usage
     -r    Each sequence interval preserves only one representative structure. Defult is false.   
           Such as P00000:XXXX_A:27-213 and P00000:ZZZZ_A:27-213, only one of them will be saved. 
  
-The project is still in its inital stage, Feel free to help with suggestions and contibutions. 
+
 
 GetPDB
 ===
@@ -76,7 +76,7 @@ GetPDB
         O15164  
         Q14258  
 
-[image](https://github.com/Wang-Lin-boop/GetPDB/blob/master/img/Uniprot.png)
+![image](https://github.com/Wang-Lin-boop/GetPDB/blob/master/img/Uniprot.png)
 
 GetPDB会接受您传入的Uniprot列表文件，然后将这些UniprotID相关的PDB下载后依据您指定的参数进行去冗余、去除多余链等处理，之后保存为"UniprotID-ModelID-ChainID.pdb/cif" 的格式（当电镜结构中诸如chain name为AAA的链无法保存为PDB时，才会保存为cif）。
 
@@ -101,8 +101,27 @@ GetPDB会接受您传入的Uniprot列表文件，然后将这些UniprotID相关�
 
         sudo apt install dos2unix
 
-现在，您可以使用GetPDB来下载您的Uniprot列表中所有相关的蛋白了！
+现在，您可以使用GetPDB来下载您的Uniprot列表中所有相关的蛋白了，执行GetPDB -h 尝试一下吧~
 
+示例
+----
+首先，将你的UniprotID存入Uniprot_list文件，随后依据以下示例执行：
 
+1-下载相关PDB用于结构调研：
+
+                GetPDB -i Uniprot_list -w -o Uniprot-PDB -n 10
+
+执行此命令会使用当前系统10个线程来运行GetPDB，自动获取输入的Uniprot ID 最新的PDB信息并下载到Uniprot-PDB路径下。
+
+2-下载相关PDB并拆分成单链
+
+                GetPDB -i Uniprot_list -w -o Uniprot-PDB -n 10 -p -r
+                
+执行此命令会获取输入UniprotID的所有结构并依据序列的区间进行去冗余化处理，但这样处理可能损失一些相同序列区间范围但构象发生变化的结构，去掉-r可以避免这一问题。
+
+****
+
+The project is still in its inital stage, Feel free to help with suggestions and contibutions. 
+项目开发中，如有建议，欢迎指出。
 
         
