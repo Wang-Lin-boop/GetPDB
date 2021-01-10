@@ -31,7 +31,7 @@ Then, move julia package and GetPDB to your /home/software or anywhere you like,
         ]add BioStructures # in Julia REPL
         exit()
         
-I'm going to convert the Julia part used in GetPDB into an executable to avoid cumbersome installation of Julia, and maybe you'll see this update in the near future.
+I'm about to convert the Julia part used in GetPDB into an executable to avoid cumbersome installation of Julia, and maybe you'll see this update in the near future.
 
 Optionally, if you use windows to process your Uniprot list files frequently, you need install a dos2unix used to convert your dos text format to unix(linux), don't worry how to use it, GetPDB will convert it automatic。
 
