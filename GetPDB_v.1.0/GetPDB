@@ -27,6 +27,7 @@ Output parameter:
   -p    Output a Representative chain per Uniprot's PDB Entry. Such as PXXXXX:XXXX_A/B, only XXXX_A will be output. Defult is false. 
   -r    Each sequence interval preserves only one representative structure. Defult is false.
         Such as P00000:XXXX_A:27-213 and P00000:ZZZZ_A:27-213, only one of them will be saved. 
+        Use -x make the Judging conditions of representative structure from "Each sequence interval holds one" to "Remove duplication as much as possible".
 
 Thank you for your using, If you found any problem, Please contact wanglin3@shanghaitech.edu.cn.
 HELP
@@ -57,8 +58,7 @@ using BioStructures
 const outdir="$outputPath"
 const Switchtospilt="$SwitchtoOnechain"
 const PDBlib="$PDBlib"
-const duptole=$duptole
-
+const InputListPath="$tmpdirPath"
 function spiltPDB(Structure,outdir,pdbid,chainname,UniprotID,Switchtospilt,resbegin,resend)
     if Switchtospilt == "false"
         try
@@ -106,22 +106,22 @@ end
 function main(Listfile)
     lastresbegin=0
     lastreslength=0
-    for line in readlines("$tmpdirPath/\$Listfile")
-        permitvalue=duptole
+    for line in readlines("\$InputListPath/\$Listfile")
+        permitvalue=0
         UniprotID = split(line,":")[1]
         pdbid = split(line,":")[2]
         chainname = split(line,":")[3]
-        resbegin = split(line,":")[4]
-        resend = split(line,":")[5]
+        resbegin = parse(Int,split(line,":")[4])
+        resend = parse(Int,split(line,":")[5])
         isequal(resbegin,lastresbegin) || (permitvalue=permitvalue + 1)
-        isequal(lastreslength,resend) || (permitvalue=permitvalue + 1)
+        lastreslength $JudgingC resend && (permitvalue=permitvalue + 1)
         processPDB(UniprotID,pdbid,chainname,Switchtospilt,permitvalue,resbegin,resend)
         lastresbegin = resbegin
         lastreslength = resend
     end
 end
 
-Threads.@threads for Listfile in readdir("$tmpdirPath")
+Threads.@threads for Listfile in readdir(InputListPath)
     main(Listfile)
 end
 JULIASC
@@ -133,10 +133,10 @@ OutPath="Uniprot-PDB"
 UniprotIndex="pdb_chain_uniprot.csv"
 CPUnum=4
 OneChain="false"
-duptole=1
 PDBlib="PDBlib"
 tmpdir="Uniprot-info-list"
-while getopts ":hi:b:l:o:n:d:prw" opt
+JudgingC=">="
+while getopts ":hi:b:l:o:n:d:prwx" opt
 do
   case $opt in
     h)
@@ -157,7 +157,9 @@ do
     p)
         OneChain=true;;
     r)
-        duptole=0;;
+        JudgingC="!=";;
+    x)
+        JudgingC="<";;
     w)
         wget -nv ftp://ftp.ebi.ac.uk/pub/databases/msd/sifts/flatfiles/csv/pdb_chain_uniprot.csv.gz
         gzip -d pdb_chain_uniprot.csv.gz
