@@ -10,6 +10,8 @@ Uniprot input example:
         O15164  
         Q14258  
 
+[image](https://github.com/Wang-Lin-boop/GetPDB/blob/master/img/Uniprot.png)
+
 This script will download related PDB files, extract chains(Optional), remove duplicates(Optional, maybe lost some conformation changed structures) and save as "UniprotID-PDBID-ModelID-ChainID.pdb/cif".
 
 installation
@@ -26,7 +28,7 @@ Then, move julia package and GetPDB to your /home/software or anywhere you like.
         echo "export PATH=${PWD}:\$PATH" >> ~/.bashrc
         source ~/.bashrc
         julia
-        ]add BioStructures
+        ]add BioStructures # in Julia REPL
         exit()
         
 I'm going to convert the Julia part used in GetPDB into an executable to avoid cumbersome installation of Julia, and maybe you'll see this update in the near future.
@@ -61,3 +63,46 @@ Usage
           Such as P00000:XXXX_A:27-213 and P00000:ZZZZ_A:27-213, only one of them will be saved. 
  
 The project is still in its inital stage, Feel free to help with suggestions and contibutions. 
+
+GetPDB
+===
+一个用于根据UniprotID的列表下载PDB结构的脚本（包含依据序列编号去冗余、去除无关Chain的功能），可用于准备靶标垂钓中的蛋白质结构输入、蛋白质结构的调研等；
+
+你需要准备一个像下面这样的Uniprot列表文件，这可以很容易的从Uniprot的搜索结果中下载:  
+
+        Q9BWF2  
+        P19474  
+        P36406  
+        O15164  
+        Q14258  
+
+[image](https://github.com/Wang-Lin-boop/GetPDB/blob/master/img/Uniprot.png)
+
+GetPDB会接受您传入的Uniprot列表文件，然后将这些UniprotID相关的PDB下载后依据您指定的参数进行去冗余、去除多余链等处理，之后保存为"UniprotID-ModelID-ChainID.pdb/cif" 的格式（当电镜结构中诸如chain name为AAA的链无法保存为PDB时，才会保存为cif）。
+
+安装
+----
+首先，你需要下载[Julia程序包](https://julialang.org/downloads/)以安装Julia依赖；
+
+将下载的程序包移动到你安装软件的目录，然后执行下面的Linux命令：（如果你是用的是Windows系统，那么Linux子系统是个不错的选择）
+
+        echo "alias GetPDB=${PWD}/GetPDB" >> ~/.bashrc
+        chmod +x GetPDB
+        tar zxvf julia-1.5.3-linux-x86_64.tar.gz
+        cd julia-1.5.3/bin
+        echo "export PATH=${PWD}:\$PATH" >> ~/.bashrc
+        source ~/.bashrc
+        julia
+        ]add BioStructures #在Julia交互式会话下
+        exit()
+
+我正在试图将GetPDB中的Julia部分编译为可执行文件，以避免用户需要安装Julia。
+如果您需要经常使用Windows生成文本文件（比如使用记事本），那么推荐您在您执行GetPDB的Linux系统下安装一个dos2unix。
+
+        sudo apt install dos2unix
+
+现在，您可以使用GetPDB来下载您的Uniprot列表中所有相关的蛋白了！
+
+
+
+        
