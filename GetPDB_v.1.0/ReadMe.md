@@ -61,8 +61,8 @@ Usage
     -p    Output a Representative chain per Uniprot's PDB Entry. Such as PXXXXX:XXXX_A/B, only XXXX_A will be output. Defult is false.   
     -r    Each sequence interval preserves only one representative structure. Defult is false.   
           Such as P00000:XXXX_A:27-213 and P00000:ZZZZ_A:27-213, only one of them will be saved. 
+          Use -x make the Judging conditions of representative structure from "Each sequence interval holds one" to "Remove duplication as much as possible".
  
-
 
 GetPDB
 ===
@@ -119,6 +119,8 @@ GetPDB会接受您传入的Uniprot列表文件，然后将这些UniprotID相关�
                 GetPDB -i Uniprot_list -w -o Uniprot-PDB -n 10 -p -r
                 
 执行此命令会获取输入UniprotID的所有结构并依据序列的区间进行去冗余化处理，但这样处理可能损失一些相同序列区间范围但构象发生变化的结构，去掉-r可以避免这一问题。
+
+3-更严格的去重标准可以使用-x，这将会确保每个蛋白只保留最大的几个序列区间。
 
 ****
 
