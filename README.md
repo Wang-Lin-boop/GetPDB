@@ -97,6 +97,7 @@ GetPDB会接受您传入的Uniprot列表文件，然后将这些UniprotID相关�
         exit()
 
 我正在试图将GetPDB中的Julia部分编译为可执行文件，以避免用户需要安装Julia。
+
 如果您需要经常使用Windows生成文本文件（比如使用记事本），那么推荐您在您执行GetPDB的Linux系统下安装一个dos2unix。
 
         sudo apt install dos2unix
