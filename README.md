@@ -121,7 +121,8 @@ GetPDB会接受您传入的Uniprot列表文件，然后将这些UniprotID相关�
 
 ****
 
-The project is still in its inital stage, Feel free to help with suggestions and contibutions. 
+The project is still in its inital stage, Feel free to help with suggestions and contibutions.   
+
 项目开发中，如有建议，欢迎指出。
 
         
