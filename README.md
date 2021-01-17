@@ -17,22 +17,24 @@ This script will download related PDB files, extract chains(Optional), remove du
 Installation
 ----
 
-Fristly, you need dwonload a julia package from [Julia Download](https://julialang.org/downloads/).
-
-Then, move julia package and GetPDB to your /home/software or anywhere you like, run these commonds as follow: (If you are using the Windows 10, then the WSL(Linux Subsystem) is a good choice.)
+Change dictiontory to your /home/software or anywhere you like, run these commonds as follow: (If you are using the Windows 10, then the WSL(Linux Subsystem) is a good choice.)
 
         git clone https://github.com/Wang-Lin-boop/GetPDB
         cd GetPDB
         echo "alias GetPDB=${PWD}/GetPDB" >> ~/.bashrc
         chmod +x GetPDB
-        tar zxvf julia-1.5.3-linux-x86_64.tar.gz
+        cd ..
+        wget https://julialang-s3.julialang.org/bin/linux/x64/1.5/julia-1.5.3-linux-x86_64.tar.gz
+        tar zxvf julia-1.5.3-linux-x86_64.tar.gz  
         cd julia-1.5.3/bin
         echo "export PATH=${PWD}:\$PATH" >> ~/.bashrc
         source ~/.bashrc
         julia
         ]add BioStructures # in Julia REPL
         exit()
-        
+
+If you've got [Julia](https://julialang.org/downloads/) installed, I believe you know which of the orders above should be removed.
+
 I'm about to convert the Julia part used in GetPDB into an executable to avoid cumbersome installation of Julia, and maybe you'll see this update in the near future.
 
 Optionally, if you use windows to process your Uniprot list files frequently, you need install a dos2unix used to convert your dos text format to unix(linux), don't worry how to use it, GetPDB will convert it automatic。
@@ -84,14 +86,14 @@ GetPDB会接受您传入的Uniprot列表文件，然后将这些UniprotID相关�
 
 安装
 ----
-首先，你需要下载[Julia程序包](https://julialang.org/downloads/)以安装Julia依赖；
-
-将下载的程序包移动到你安装软件的目录，然后执行下面的Linux命令：（如果你是用的是Windows系统，那么Linux子系统是个不错的选择）
+首先，选择一个你喜欢的目录：，然后执行下面的Linux命令：（如果你是用的是Windows系统，那么Linux子系统是个不错的选择）
 
         git clone https://github.com/Wang-Lin-boop/GetPDB
         cd GetPDB
         echo "alias GetPDB=${PWD}/GetPDB" >> ~/.bashrc
         chmod +x GetPDB
+        cd ..
+        wget https://julialang-s3.julialang.org/bin/linux/x64/1.5/julia-1.5.3-linux-x86_64.tar.gz
         tar zxvf julia-1.5.3-linux-x86_64.tar.gz
         cd julia-1.5.3/bin
         echo "export PATH=${PWD}:\$PATH" >> ~/.bashrc
@@ -99,6 +101,8 @@ GetPDB会接受您传入的Uniprot列表文件，然后将这些UniprotID相关�
         julia
         ]add BioStructures #在Julia交互式会话下
         exit()
+
+如果你已经安装了Julia，那么我想你一定知道该怎么做~
 
 我正在试图将GetPDB中的Julia部分编译为可执行文件，以避免用户需要安装Julia。
 
