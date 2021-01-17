@@ -21,6 +21,8 @@ Fristly, you need dwonload a julia package from [Julia Download](https://juliala
 
 Then, move julia package and GetPDB to your /home/software or anywhere you like, run these commonds as follow: (If you are using the Windows 10, then the WSL(Linux Subsystem) is a good choice.)
 
+        git clone https://github.com/Wang-Lin-boop/GetPDB
+        cd GetPDB
         echo "alias GetPDB=${PWD}/GetPDB" >> ~/.bashrc
         chmod +x GetPDB
         tar zxvf julia-1.5.3-linux-x86_64.tar.gz
@@ -86,6 +88,8 @@ GetPDB会接受您传入的Uniprot列表文件，然后将这些UniprotID相关�
 
 将下载的程序包移动到你安装软件的目录，然后执行下面的Linux命令：（如果你是用的是Windows系统，那么Linux子系统是个不错的选择）
 
+        git clone https://github.com/Wang-Lin-boop/GetPDB
+        cd GetPDB
         echo "alias GetPDB=${PWD}/GetPDB" >> ~/.bashrc
         chmod +x GetPDB
         tar zxvf julia-1.5.3-linux-x86_64.tar.gz
