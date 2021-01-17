@@ -17,7 +17,7 @@ This script will download related PDB files, extract chains(Optional), remove du
 Installation
 ----
 
-Change dictiontory to your /home/software or anywhere you like, run these commonds as follow: (If you are using the Windows 10, then the WSL(Linux Subsystem) is a good choice.)
+Change dictiontory to your /home/software or anywhere you like, run these commands as follow: (If you are using the Windows 10, then the WSL(Linux Subsystem) is a good choice.)
 
         git clone https://github.com/Wang-Lin-boop/GetPDB
         cd GetPDB
@@ -33,7 +33,7 @@ Change dictiontory to your /home/software or anywhere you like, run these common
         ]add BioStructures # in Julia REPL
         exit()
 
-If you've got [Julia](https://julialang.org/downloads/) installed, I believe you know which of the orders above should be removed.
+If you've got installed [Julia](https://julialang.org/downloads/), I believe you know which of the commands above should be removed.
 
 I'm about to convert the Julia part used in GetPDB into an executable to avoid cumbersome installation of Julia, and maybe you'll see this update in the near future.
 
