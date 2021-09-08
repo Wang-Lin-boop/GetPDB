@@ -1,4 +1,10 @@
 #!/bin/bash
+#########################################################################
+# GetPDB, Version 1.0.0
+# 2021, ShanghaiTech University, Wang Lin
+# Email: wanglin3@shanghaitech.edu.cn
+#########################################################################
+
 function help (){
 cat<<HELP
 
@@ -213,7 +219,7 @@ Warning: PDB structure of $uncaught_num proteins were not found in PDB.
 Warning: list of these uncaught uniprot IDs: $(basename ${input})_UN_caught.list
 
 Warning: ${cif_num} cif filenames were saved into a list file: $(basename ${input})_cif_out.list.
-Warning: These CIF files often have special chainnames. 
+Warning: These CIF files most likely contain special chainnames. 
 Warning: You may need to convert their file format with PyMOL or Maestro.
 
 Thank you for your using, If you found any problem, Please contact wanglin3@shanghaitech.edu.cn.
