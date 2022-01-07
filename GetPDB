@@ -6,7 +6,7 @@
 #########################################################################
 
 function help (){
-cat<<HELP
+cat<< HELP
 
 Usage: GetPDB [OPTION] <parameter>
 
@@ -81,9 +81,9 @@ function spiltPDB(Structure,outdir,pdbid,chainname,UniprotID,Switchtospilt,resbe
                 uniqchainname = BioStructures.chainid(chain) 
                 uniqchainname == chainname && begin
                 try
-                    BioStructures.writepdb("\$outdir/\$UniprotID-\$resbegin-\$resend-\$pdbid.\$modelname.\$chainname-PDB.pdb",chain)
+                    BioStructures.writepdb("\$outdir/PDB-\$UniprotID-\$resbegin.\$resend-\$pdbid.\$modelname.\$chainname.pdb",chain)
                 catch e0
-                    BioStructures.writemmcif("\$outdir/\$UniprotID-\$resbegin-\$resend-\$pdbid.\$modelname.\$chainname-PDB.cif",chain)
+                    BioStructures.writemmcif("\$outdir/PDB-\$UniprotID-\$resbegin.\$resend-\$pdbid.\$modelname.\$chainname-PDB.cif",chain)
                 end
                 end
             end
