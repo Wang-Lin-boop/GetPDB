@@ -81,9 +81,9 @@ function spiltPDB(Structure,outdir,pdbid,chainname,UniprotID,Switchtospilt,resbe
                 uniqchainname = BioStructures.chainid(chain) 
                 uniqchainname == chainname && begin
                 try
-                    BioStructures.writepdb("\$outdir/PDB-\$UniprotID-\$resbegin.\$resend-\$pdbid.\$modelname.\$chainname.pdb",chain)
+                    BioStructures.writepdb("\$outdir/PDB-\$UniprotID-EXP-\$pdbid-\$modelname-\$chainname-\$resbegin.\$resend.pdb",chain)
                 catch e0
-                    BioStructures.writemmcif("\$outdir/PDB-\$UniprotID-\$resbegin.\$resend-\$pdbid.\$modelname.\$chainname-PDB.cif",chain)
+                    BioStructures.writemmcif("\$outdir/PDB-\$UniprotID-EXP-\$pdbid-\$modelname-\$chainname-\$resbegin.\$resend.cif",chain)
                 end
                 end
             end
