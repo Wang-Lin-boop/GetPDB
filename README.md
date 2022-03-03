@@ -68,7 +68,7 @@ Usage
  
 How to cite
 ----
-It is recommended that citing the script by link (such as: `GetPDB(https://github.com/Wang-Lin-boop/GetPDB)`) or refer to this page [Ways to cite a GitHub Repo](https://www.wikihow.com/Cite-a-GitHub-Repository) to promote reproducibility of your work.
+It is recommended that citing the script by a link (such as: `GetPDB(https://github.com/Wang-Lin-boop/GetPDB)`) or refer to this page [Ways to cite a GitHub Repo](https://www.wikihow.com/Cite-a-GitHub-Repository) to promote reproducibility of your work.
 
 
 GetPDB
