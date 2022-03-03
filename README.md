@@ -66,6 +66,9 @@ Usage
     -r    Each sequence interval preserves only one representative structure. Defult is false.   
           Such as P00000:XXXX_A:27-213 and P00000:ZZZZ_A:27-213, only one of them will be saved. 
  
+How to cite
+----
+It is recommended that citing the script by link (such as: `GetPDB(https://github.com/Wang-Lin-boop/GetPDB)`) or refer to this page [Ways to cite a GitHub Repo](https://www.wikihow.com/Cite-a-GitHub-Repository) to promote reproducibility of your work.
 
 
 GetPDB
