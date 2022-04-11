@@ -1,5 +1,7 @@
 GetPDB
 =======
+[![DOI](https://zenodo.org/badge/228327516.svg)](https://zenodo.org/badge/latestdoi/228327516)
+
 A linux shell script with julia BioStrucures Package to download and spilt PDB from Uniprot ID list.
 
 Uniprot input example:  
