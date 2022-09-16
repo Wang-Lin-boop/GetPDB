@@ -98,12 +98,12 @@ function processPDB(UniprotID,pdbid,chainname,Switchtospilt,permitvalue,resbegin
             spiltPDB(Structure,outdir,pdbid,chainname,UniprotID,Switchtospilt,resbegin,resend)
         catch e1
             try    
-                BioStructures.downloadpdb(pdbid,dir=PDBlib,format=MMCIF) 
-                Structure = BioStructures.read("\$PDBlib/\$pdbid.cif", MMCIF)
+                file = BioStructures.downloadpdb(pdbid,dir=PDBlib,format=MMCIF) 
+                Structure = BioStructures.read(file, MMCIF)
                 spiltPDB(Structure,outdir,pdbid,chainname,UniprotID,Switchtospilt,resbegin,resend)
             catch e2
-                BioStructures.downloadpdb(pdbid,dir=PDBlib,format=MMTF)
-                Structure = BioStructures.read("\$PDBlib/\$pdbid.mmtf", MMTF)
+                file = BioStructures.downloadpdb(pdbid,dir=PDBlib,format=MMTF)
+                Structure = BioStructures.read(file, MMTF)
                 spiltPDB(Structure,outdir,pdbid,chainname,UniprotID,Switchtospilt,resbegin,resend)
             end
         end
