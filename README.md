@@ -16,6 +16,8 @@ Uniprot input example:
 
 This script will download related PDB files, extract chains(Optional), remove duplicates(Optional, maybe lost some conformation changed structures) and save as "UniprotID-PDBID-ModelID-ChainID.pdb/cif".
 
+![image](https://user-images.githubusercontent.com/58931275/210138300-5600376b-e47c-4be9-9208-30c2c1be3038.png)
+
 Installation
 ----
 
