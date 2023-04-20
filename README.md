@@ -70,9 +70,19 @@ Usage
     -r    Each sequence interval preserves only one representative structure. Defult is false.   
           Such as P00000:XXXX_A:27-213 and P00000:ZZZZ_A:27-213, only one of them will be saved. 
  
-How to cite
+Citation
 ----
-It is recommended that citing the script by a link (such as: `GetPDB(https://github.com/Wang-Lin-boop/GetPDB)`) or refer to this page [Ways to cite a GitHub Repo](https://www.wikihow.com/Cite-a-GitHub-Repository) to promote reproducibility of your work.
+```
+@article{doi:10.1021/acs.jcim.2c01033,
+author = {Wang, Lin and Li, Feng-lei and Ma, Xin-yue and Cang, Yong and Bai, Fang},
+title = {PPI-Miner: A Structure and Sequence Motif Co-Driven Protein–Protein Interaction Mining and Modeling Computational Method},
+journal = {Journal of Chemical Information and Modeling},
+volume = {62},
+number = {23},
+pages = {6160-6171},
+year = {2022}
+}
+```
 
 
 GetPDB
