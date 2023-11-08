@@ -145,6 +145,22 @@ GetPDB会接受您传入的Uniprot列表文件，然后将这些UniprotID相关�
                 
 执行此命令会获取输入UniprotID的所有结构并依据序列的区间进行去冗余化处理，但这样处理可能损失一些相同序列区间范围但构象发生变化的结构，去掉-r可以避免这一问题。
 
+
+引用
+----
+如果GetPDB对你的项目有帮助，欢迎引用我们的相关工作：
+```
+@article{doi:10.1021/acs.jcim.2c01033,
+author = {Wang, Lin and Li, Feng-lei and Ma, Xin-yue and Cang, Yong and Bai, Fang},
+title = {PPI-Miner: A Structure and Sequence Motif Co-Driven Protein–Protein Interaction Mining and Modeling Computational Method},
+journal = {Journal of Chemical Information and Modeling},
+volume = {62},
+number = {23},
+pages = {6160-6171},
+year = {2022}
+}
+```
+
 ****
 
 The project is still in its inital stage, Feel free to help with suggestions and contibutions.   
