@@ -41,7 +41,7 @@ If you've got installed [Julia](https://julialang.org/downloads/), I believe you
 
 I'm about to convert the Julia part used in GetPDB into an executable to avoid cumbersome installation of Julia, and maybe you'll see this update in the near future.
 
-Optionally, if you use windows to process your Uniprot list files frequently, you need install a dos2unix used to convert your dos text format to unix(linux), don't worry how to use it, GetPDB will convert it automatic。
+Optionally, if you use windows to process your Uniprot list files frequently, you need install a dos2unix used to convert your dos text format to unix(linux), don't worry how to use it, GetPDB will convert it automatic.
 
         sudo apt install dos2unix
 
